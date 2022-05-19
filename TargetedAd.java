@@ -6,49 +6,38 @@ import java.util.ArrayList;
 public class TargetedAd {
 
     public static void main(String[] args) {
-        /*
-         * TODO: PREPARATION WORK
-         * 
-         * 1) Create a file called targetWords.txt. Populate this file with words on each line that
-         * you think would determine if a user is a dog or cat owner.
-         * 
-         * PROGRAMMING
-         * 
-         * (2) Create a new DataCollector object and set the data to "socialMediaPostsSmall.txt" and
-         * "targetWords.txt"
-         * 
-         * Important: Use the socialMedialPostsSmall to create your algorithm. Using a small file
-         * will help you generate your solution quicker and give you the ability to double check
-         * your work.
-         * 
-         * (3) Create a String variable to hold the names of all the user. (The first word of every
-         * post is a person's username)
-         * 
-         * (4) Compare each user's post to each target word. If a user mentions a target word, add
-         * their username to the String of users. Separate usernames with a space. Hint: You can use
-         * loops to look through each word. Hint2: You can use indexOf to check if a word is in a
-         * user post.
-         * 
-         * (5) Once you have all the users, use your DataCollector's prepareAdvertisement method to
-         * prepare a file with all users and the advertisement you will send them. Additional Info:
-         * The prepareAdvertisement creates a new file on your computer. Check the posts of some of
-         * the usernames to make sure your algorithm worked.
-         * 
-         * THE FINAL SOLUTION
-         * 
-         * (6) Your solution should work with the socialMedialPostsSmall.txt. Modify your
-         * DataCollector initialization so you use the socialMediaPosts.txt. You should now have a
-         * larger file of users to target.
-         */
 
         // Create a new DataCollector object
         DataCollector dataCollector = new DataCollector();
         // Set the data to "socialMediaPostsSmall.txt" and "targetWords.txt"
-        dataCollector.setData("socialMediaPostsSmall.txt", "targetWords.txt");
+        dataCollector.setData("socialMediaPosts.txt", "targetWords.txt");
 
-        // Holds the name of all the users
-        String users = "";
+        // Store target words, social media posts, and users in their own respective ArrayLists
+        ArrayList<String> targetWords = dataCollector.getTargetWords();
+        ArrayList<String> socialMediaPosts = dataCollector.getSocialMediaPosts();
+        ArrayList<String> users = new ArrayList<String>();
 
+        // Iterate through the social media posts
+        for (int i = 0; i < socialMediaPosts.size(); i++) {
+            // Get info and separate it into post and user
+            String curInfo = socialMediaPosts.get(i);
+            String curUser = curInfo.substring(0, curInfo.indexOf(" "));
+            String curPost = curInfo.substring(curInfo.indexOf(" "));
+            // Iterate through the target words
+            for (int j = 0; j < targetWords.size(); j++) {
+                // Get current target word
+                String curTarget = targetWords.get(j);
+                // If the post includes the target word, and the user list doesn't include the user
+                if (curPost.indexOf(curTarget) != -1 && !users.contains(curUser)) {
+                    // Add the user to the list
+                    users.add(curUser);
+                }
+            }
+        }
+
+        // Prepares the advertisement
+        dataCollector.prepareAdvertisement("advertisement.txt", users,
+                "We bet your furry friend would love to smell our pet food!");
 
     }
 
