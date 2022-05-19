@@ -94,15 +94,15 @@ public class DataCollector {
      * Create a File named filename and stores all the usernames to target
      * 
      * @param filename The name to save the file, must include .txt
-     * @param usernames A string containing the usernames of people to target, usernames are
-     *        separated by a space.
+     * @param usernames An ArrayList containing the usernames of people to target
      */
-    public void prepareAdvertisement(String filename, String usernames, String advertisement) {
+    public void prepareAdvertisement(String filename, ArrayList<String> usernames,
+            String advertisement) {
         try {
             FileWriter fw = new FileWriter(filename);
             // String method splits a string based on the provided token
             // and returns an array of individual substrings
-            for (String un : usernames.split(" ")) {
+            for (String un : usernames) {
                 fw.write("@" + un + " " + advertisement + "\n");
             }
             fw.close();
@@ -125,6 +125,15 @@ public class DataCollector {
     public void printAllTargetWords() {
         for (String word : this.targetWords)
             System.out.println(word);
+    }
+
+
+    public ArrayList<String> getTargetWords() {
+        return targetWords;
+    }
+
+    public ArrayList<String> getSocialMediaPosts() {
+        return socialMediaPosts;
     }
 
 }
