@@ -1,9 +1,4 @@
-doggie
-dog
-dogs
 cat
-cats
-kitten
-kitty
+dog
+kitt
 pup
-puppy
